@@ -11,6 +11,18 @@ const reactions = [
   [["smile", "I’ll be here when you’re ready."], ["comfortable", "Just how I like it."], ["grin", "Perfect timing!"]],
   [["worried", "Maybe I stayed in too long."], ["disappointed", "A little darker than I hoped."], ["dismayed", "Oh no, I wanted a lighter toast!"]]
 ];
+const reactionBackgrounds = {
+  smile: "#FFF8E7",
+  comfortable: "#FFF2CC",
+  grin: "#F3E3A6",
+  uneasy: "#FFF1E8",
+  "slightly-impatient": "#F8DDC8",
+  impatient: "#EDC7A5",
+  worried: "#EDF1F5",
+  disappointed: "#DDE6EF",
+  dismayed: "#C4D3E2",
+  surprised: "#E8DFF0"
+};
 const shadeByLevel = [0, 0, 1, 2, 2];
 let cycleExpectations = null;
 let hasFinishedCycle = false;
@@ -107,6 +119,7 @@ function render(state) {
   }
   ui.comparison.hidden = !isFinished;
   ui.retry.hidden = !hasFinishedCycle;
+  document.body.style.backgroundColor = reactionBackgrounds[expression] || "";
   ui.face.hidden = !expression;
   ui.face.dataset.expression = expression;
   ui.opinion.dataset.expression = expression;

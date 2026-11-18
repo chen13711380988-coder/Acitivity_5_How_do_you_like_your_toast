@@ -1,6 +1,6 @@
 /* 1. The shared palette and the user's locally supplied typewriter font. */
 @font-face { font-family: "JMH Typewriter Mono"; src: url("assets/JMH-Typewriter-Mono.ttf") format("truetype"); font-display: swap; }
-:root { --paper: #F5E6C0; --ink: #493024; --muted: #795d47; --rust: #9d452e; --rule: #b9a17c; --cream: #fff8e6; --medium: 0; --dark: 0; }
+:root { --paper: #F5E6C0; --ink: #493024; --muted: #684d3a; --rust: #9d452e; --rule: #b9a17c; --cream: #fff8e6; --medium: 0; --dark: 0; }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: "JMH Typewriter Mono", "Courier New", monospace; font-size: 16px; line-height: 1.5; }
 button, input { font: inherit; }
@@ -123,7 +123,24 @@ progress::-moz-progress-bar { background: var(--rust); }
 /* Revised interface: paper surface, physical knob, and an open slot.
    The original body is repeated without editing its pixels: the front copy
    masks the lower bread, while the back chrome edge stays behind it. */
-body { background-color: #F5E6C0; background-image: linear-gradient(rgba(245,230,192,.82), rgba(245,230,192,.82)), url("assets/paper-texture.jpg"); background-size: auto, 835px 392px; }
+body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background-color: var(--paper);
+  transition: background-color .5s ease .1s;
+}
+/* A translucent texture lets each reaction color show through. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("assets/paper-texture.jpg") repeat;
+  background-size: 835px 392px;
+  opacity: .18;
+}
 .intro { display: block; padding: 34px 0 14px; }
 h1 { font-size: clamp(30px,4.6vw,56px); line-height: 1.2; letter-spacing: -2px; }
 .intro-note { max-width: 740px; margin: 14px 0 0; font-size: 13px; }
